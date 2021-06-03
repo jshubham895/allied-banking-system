@@ -31,7 +31,7 @@ mongoose
   });
 
 app.get("/", (req, res) => {
-  res.json("Using MongoDB now");
+  res.json("Database connected successfully. Using MongoDB Atlas now");
 });
 
 require("./app/routes/account.routes.js")(app);
