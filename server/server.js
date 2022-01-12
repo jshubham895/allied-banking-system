@@ -16,28 +16,29 @@ const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
 mongoose
-  .connect(dbConfig.url, {
-    useNewUrlParser: true,
-  })
-  .then(() => {
-    console.log("Successfully connected to the NoSQL database");
-  })
-  .catch((err) => {
-    console.log(
-      "Could not connect to the database right now. Exiting now...",
-      err
-    );
-    process.exit();
-  });
+	.connect(dbConfig.url, {
+		useNewUrlParser: true
+	})
+	.then(() => {
+		// console.log(mongoose.connection);
+		console.log("Successfully connected to the NoSQL database");
+	})
+	.catch((err) => {
+		console.log(
+			"Could not connect to the database right now. Exiting now...",
+			err
+		);
+		process.exit();
+	});
 
 app.get("/", (req, res) => {
-  res.json("Using MongoDB now");
+	res.json("Using MongoDB now");
 });
 
 require("./app/routes/account.routes.js")(app);
 
 require("./app/routes/transaction.routes.js")(app);
 
-app.listen(process.env.PORT || 3001, () => {
-  console.log(`Server is listening at port ${process.env.PORT} `);
+app.listen(3001, () => {
+	console.log(`Server is listening at port 3001`);
 });

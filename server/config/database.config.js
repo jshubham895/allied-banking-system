@@ -1,3 +1,3 @@
 module.exports = {
-    url:'mongodb://localhost:27017/basic-banking-system'
-}
+	url: "mongodb+srv://database_admin:database_password@basicbankingsystem.yr3hj.mongodb.net/basic-banking-system?retryWrites=true&w=majority"
+};
