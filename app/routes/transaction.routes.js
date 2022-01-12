@@ -1,13 +1,13 @@
 module.exports = (app) => {
-  const transactions = require("../controllers/transaction.controller.js");
+	const transactions = require("../controllers/transaction.controller.js");
 
-  app.post("/transactions", transactions.create);
+	app.post("/transactions", transactions.create);
 
-  app.get("/transactions", transactions.findAll);
-  
-  app.get("/transactions/from/:from", transactions.findOneFrom);
-  
-  app.get("/transactions/to/:to", transactions.findOneTo);
+	app.get("/transactions", transactions.findAll);
 
-  
+	app.get("/transactions/:from", transactions.find);
+
+	app.get("/transactions/from/:from", transactions.findOneFrom);
+
+	app.get("/transactions/to/:to", transactions.findOneTo);
 };
