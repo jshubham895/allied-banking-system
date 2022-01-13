@@ -4,8 +4,8 @@
 import React from "react";
 import "./App.css";
 import Home from "./components/pages/Home";
-import Navbar from "./components/layout/Navbar";
-import Footer from "./components/layout/Footer";
+// import Navbar from "./components/layout/Navbar";
+// import Footer from "./components/layout/Footer";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Accounts from "./components/pages/Accounts";
 import EditAccount from "./components/users/EditAccount";
@@ -45,7 +45,6 @@ function App() {
 	return (
 		<Router>
 			<div className="App">
-				<Navbar />
 				<div className="mt-5">
 					<Switch>
 						<Route exact path="/accounts" component={Accounts} />
@@ -60,7 +59,6 @@ function App() {
 						<Route exact path="/" component={Home} />
 					</Switch>
 				</div>
-				<Footer />
 			</div>
 		</Router>
 	);

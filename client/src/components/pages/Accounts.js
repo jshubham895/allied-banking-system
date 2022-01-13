@@ -4,12 +4,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import formatter from "../../formatter";
+import Navbar from "../layout/Navbar";
+import Footer from "../layout/Footer";
+import LoadingScreen from "../LoadingScreen";
 
 function Accounts() {
 	const [accountsList, setAccountsList] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		getAccounts();
+		const fetchData = async () => {
+			await getAccounts();
+			setLoading(false);
+		};
+		fetchData();
 	}, []);
 
 	const getAccounts = async () => {
@@ -24,69 +32,83 @@ function Accounts() {
 	};
 
 	return (
-		<div className="container">
-			<hr />
-			<Link className="btn-primary btn" to="/">
-				Back
-			</Link>
-			<table className="table container shadow-lg mt-5">
-				<thead className="table-dark">
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Name</th>
-						<th scope="col">Email</th>
-						<th scope="col">
-							Balance ( <FontAwesomeIcon icon="rupee-sign" size="xs" /> )
-						</th>
-						<th scope="col" className="text-center">
-							Action
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					{accountsList.map((val, key) => {
-						return (
-							<tr key={val._id}>
-								<td>{key + 1}</td>
-								<td>{val.name}</td>
-								<td>{val.email}</td>
-								<td>{formatter(val.balance)}</td>
-								<td>
-									<Link
-										className="btn btn-outline-primary mr-2"
-										to={`/accounts/view/${val._id}`}
-									>
-										<FontAwesomeIcon
-											icon="money-bill"
-											size="1x"
-											className="mr-2"
-										/>
-										View and Transfer Money
-									</Link>
-									<Link
-										className="btn btn-outline-success mr-2"
-										to={`/accounts/edit/${val._id}`}
-									>
-										<FontAwesomeIcon icon="edit" size="1x" className="mr-2" />
-										Edit
-									</Link>
-									<span
-										className="btn btn-outline-danger mr-2"
-										onClick={() => deleteAccount(val._id)}
-									>
-										<FontAwesomeIcon
-											icon="trash-alt"
-											size="1x"
-											className="mr-2"
-										/>
-										Delete
-									</span>
-								</td>
-							</tr>
-						);
-					})}
-				</tbody>
-			</table>
+		<div>
+			{loading ? (
+				<LoadingScreen />
+			) : (
+				<div>
+					<Navbar />
+					<div className="container">
+						<hr />
+						<Link className="btn-primary btn" to="/">
+							Back
+						</Link>
+						<table className="table container shadow-lg mt-5">
+							<thead className="table-dark">
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Name</th>
+									<th scope="col">Email</th>
+									<th scope="col">
+										Balance ( <FontAwesomeIcon icon="rupee-sign" size="xs" /> )
+									</th>
+									<th scope="col" className="text-center">
+										Action
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								{accountsList.map((val, key) => {
+									return (
+										<tr key={val._id}>
+											<td>{key + 1}</td>
+											<td>{val.name}</td>
+											<td>{val.email}</td>
+											<td>{formatter(val.balance)}</td>
+											<td>
+												<Link
+													className="btn btn-outline-primary mr-2"
+													to={`/accounts/view/${val._id}`}
+												>
+													<FontAwesomeIcon
+														icon="money-bill"
+														size="1x"
+														className="mr-2"
+													/>
+													View and Transfer Money
+												</Link>
+												<Link
+													className="btn btn-outline-success mr-2"
+													to={`/accounts/edit/${val._id}`}
+												>
+													<FontAwesomeIcon
+														icon="edit"
+														size="1x"
+														className="mr-2"
+													/>
+													Edit
+												</Link>
+												<span
+													className="btn btn-outline-danger mr-2"
+													onClick={() => deleteAccount(val._id)}
+												>
+													<FontAwesomeIcon
+														icon="trash-alt"
+														size="1x"
+														className="mr-2"
+													/>
+													Delete
+												</span>
+											</td>
+										</tr>
+									);
+								})}
+							</tbody>
+						</table>
+					</div>
+					<Footer />
+				</div>
+			)}
 		</div>
 	);
 }

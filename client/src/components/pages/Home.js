@@ -2,10 +2,13 @@ import React from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Navbar from "../layout/Navbar";
+import Footer from "../layout/Footer";
 
 function Home() {
 	return (
 		<div>
+			<Navbar />
 			<div
 				className="img d-flex flex-column justify-content-around align-items-end"
 				style={{ backgroundImage: "url(./background.jpg)" }}
@@ -75,6 +78,7 @@ function Home() {
 					</div>
 				</div>
 			</div>
+			<Footer />
 		</div>
 	);
 }
