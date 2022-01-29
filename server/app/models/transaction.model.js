@@ -8,7 +8,9 @@ const transactionSchema = mongoose.Schema({
 	hour: { type: Number },
 	minute: { type: Number },
 	from: { type: String, required: true },
+	fromId: { type: String, required: true },
 	to: { type: String, required: true },
+	toId: { type: String, required: true },
 	status: { type: String },
 	amountExchange: { type: Number, required: true }
 });

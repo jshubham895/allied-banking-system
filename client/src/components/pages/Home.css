@@ -27,6 +27,15 @@
 	font-weight: bold;
 }
 
+.form{
+	width: max-content;
+	background-color: #282828;
+	color: white;
+	margin-top: 2rem;
+	margin-right: 115px;	
+	padding: 25px;
+}
+
 .buttons {
 	height: 200px;
 }

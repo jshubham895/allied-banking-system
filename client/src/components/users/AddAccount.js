@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
+require("dotenv").config();
 
 const AddAccount = () => {
 	let history = useHistory();
@@ -8,20 +9,23 @@ const AddAccount = () => {
 	const [account, setAccount] = useState({
 		name: "",
 		email: "",
+		password: "",
 		balance: "",
 		mobile: "",
 		city: ""
 	});
 
-	const { name, email, balance, mobile, city } = account;
+	const { name, email, balance, password, mobile, city } = account;
 	const onInputChange = (e) => {
 		setAccount({ ...account, [e.target.name]: e.target.value });
 	};
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		await Axios.post("http://localhost:3001/accounts", account);
-		history.push("/accounts");
+		console.log(process.env.API_URL);
+		await Axios.post("http://localhost:3001/accounts/signup", account);
+		alert("Account created successful	ly");
+		history.push("/");
 	};
 
 	return (
@@ -50,6 +54,17 @@ const AddAccount = () => {
 							placeholder="Enter your email"
 							name="email"
 							value={email}
+							onChange={(e) => onInputChange(e)}
+						/>
+					</div>
+					<div className="mb-3">
+						<label className="form-label">Password</label>
+						<input
+							type="password"
+							className="form-control"
+							placeholder="Enter your password"
+							name="password"
+							value={password}
 							onChange={(e) => onInputChange(e)}
 						/>
 					</div>

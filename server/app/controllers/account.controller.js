@@ -1,21 +1,26 @@
 const Account = require("../models/account.model.js");
+const bcrypt = require("bcrypt");
+const { createTokens } = require("./JWT");
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
 	if (!req.body.name || req.body.balance < 0) {
 		return res.status(400).send({
-			message: "Details cannot be empty"
+			message: "Empty name or balance less than 0"
 		});
 	}
 
-	const account = new Account({
+	const hash = await bcrypt.hash(req.body.password, 10);
+
+	const account = await new Account({
 		name: req.body.name,
 		email: req.body.email,
+		password: hash,
 		balance: req.body.balance,
 		mobile: req.body.mobile,
 		city: req.body.city
 	});
 
-	account
+	await account
 		.save()
 		.then((data) => {
 			res.send(data);
@@ -26,6 +31,27 @@ exports.create = (req, res) => {
 					err.message || "Some error occurred during creation of Account."
 			});
 		});
+};
+
+exports.login = async (req, res) => {
+	const { email, password } = req.body;
+	const user = await Account.findOne({ email: email });
+
+	if (!user) res.status(400).json({ error: "User does not exist" });
+	else {
+		const dbPassword = user.password;
+		await bcrypt.compare(password, dbPassword).then((match) => {
+			if (!match) {
+				res
+					.status(400)
+					.json({ error: "Wrong username and password combination" });
+			} else {
+				const accessToken = createTokens(user);
+
+				res.json({ token: accessToken, user: user });
+			}
+		});
+	}
 };
 
 exports.findAll = (req, res) => {
@@ -120,4 +146,16 @@ exports.delete = (req, res) => {
 				message: "Could not delete account with id " + req.params.accountId
 			});
 		});
+};
+
+exports.findByName = (req, res) => {
+	const nameById = req.params.name;
+	Account.findOne({ name: nameById }).then((account) => {
+		if (!account) {
+			return res.status(404).send({
+				message: "Account not found with name " + req.params.name
+			});
+		}
+		res.send(account._id);
+	});
 };

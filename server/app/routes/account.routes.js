@@ -1,13 +1,19 @@
+const { validateToken } = require("../controllers/JWT");
+
 module.exports = (app) => {
-  const accounts = require("../controllers/account.controller.js");
+	const accounts = require("../controllers/account.controller.js");
 
-  app.post("/accounts", accounts.create);
+	app.post("/accounts/signup", accounts.create);
 
-  app.get("/accounts", accounts.findAll);
+	app.post("/accounts/login", accounts.login);
 
-  app.get("/accounts/:accountId", accounts.findOne);
+	app.get("/accounts", validateToken, accounts.findAll);
 
-  app.put("/accounts/:accountId", accounts.update);
+	app.get("/accounts/name/:name", accounts.findByName);
 
-  app.delete("/accounts/:accountId", accounts.delete);
+	app.get("/accounts/:accountId", validateToken, accounts.findOne);
+
+	app.put("/accounts/:accountId", validateToken, accounts.update);
+
+	app.delete("/accounts/:accountId", accounts.delete);
 };

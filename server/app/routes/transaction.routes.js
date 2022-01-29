@@ -5,7 +5,7 @@ module.exports = (app) => {
 
 	app.get("/transactions", transactions.findAll);
 
-	app.get("/transactions/:from", transactions.find);
+	app.get("/transactions/account/:Id", transactions.find);
 
 	app.get("/transactions/from/:from", transactions.findOneFrom);
 

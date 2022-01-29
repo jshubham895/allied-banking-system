@@ -32,7 +32,12 @@ const Navbar = () => {
 							</NavLink>
 						</li>
 						<li className="nav-item">
-							<NavLink className="nav-link" exact to="/accounts">
+							<NavLink
+								className="nav-link"
+								to={{
+									pathname: "/accounts"
+								}}
+							>
 								Accounts List
 							</NavLink>
 						</li>

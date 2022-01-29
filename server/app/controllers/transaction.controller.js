@@ -6,7 +6,7 @@ exports.create = async (req, res) => {
 	const account = await Account.findOne({ name: req.body.from });
 	const balance = account.balance;
 
-	if (Number(req.body.amountExchange) > balance) {
+	if (Number(req.body.amountExchange) > balance || !req.body.amountExchange) {
 		return res.status(400).send({
 			error: "Insufficient balance",
 			message: "Transaction declined due to insufficient balance"
@@ -22,7 +22,9 @@ exports.create = async (req, res) => {
 		hour: date.getHours(),
 		minute: date.getMinutes(),
 		from: req.body.from,
+		fromId: req.body.fromId,
 		to: req.body.to,
+		toId: req.body.toId,
 		status: "negative",
 		amountExchange: req.body.amountExchange
 	});
@@ -135,9 +137,9 @@ exports.findOneTo = (req, res) => {
 };
 
 exports.find = (req, res) => {
-	const name = req.params.from;
+	const id = req.params.Id;
 	Transaction.find(
-		{ $or: [{ from: name }, { to: name }] },
+		{ $or: [{ fromId: id }, { toId: id }] },
 		function (err, obj) {
 			res.send(obj);
 		}

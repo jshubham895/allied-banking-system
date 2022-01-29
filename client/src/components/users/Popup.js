@@ -1,14 +1,14 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import gifs from "./62994-success-lottie-animation.gif";
 import "./Popup.css";
 
 const Popup = ({ from, to, amountExchange, handleClose }) => {
-	let history = useHistory();
+	// let history = useHistory();
 
-	const Redirected = () => {
-		history.push("/accounts");
-	};
+	// const Redirected = () => {
+	// 	history.push("/");
+	// };
 
 	return (
 		<div className="popup-box">
@@ -22,10 +22,10 @@ const Popup = ({ from, to, amountExchange, handleClose }) => {
 						className="btn btn-outline-success "
 						onClick={async (e) => {
 							await handleClose();
-							await Redirected();
+							// await Redirected();
 						}}
 					>
-						Go to home
+						Close
 					</button>
 				</div>
 				<div className="right">

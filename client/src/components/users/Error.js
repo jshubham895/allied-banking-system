@@ -7,7 +7,7 @@ const Popup = ({ message, handleClose }) => {
 	let history = useHistory();
 
 	const Redirected = () => {
-		history.push("/accounts");
+		history.push("/");
 	};
 
 	return (

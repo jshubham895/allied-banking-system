@@ -7,27 +7,41 @@ import formatter from "../../formatter";
 import Navbar from "../layout/Navbar";
 import Footer from "../layout/Footer";
 import LoadingScreen from "../LoadingScreen";
+import useToken from "../../useToken";
 
 function Accounts() {
+	const token = useToken();
+	const config = {
+		headers: {
+			token: `${token}`
+		}
+	};
+
 	const [accountsList, setAccountsList] = useState([]);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const fetchData = async () => {
-			await getAccounts();
+			await Axios.get("http://localhost:3001/accounts", {
+				headers: { token: `${token}` }
+			}).then((response) => {
+				setAccountsList(response.data.reverse());
+			});
 			setLoading(false);
 		};
 		fetchData();
-	}, []);
+	}, [token]);
 
 	const getAccounts = async () => {
-		await Axios.get("http://localhost:3001/accounts").then((response) => {
-			setAccountsList(response.data.reverse());
-		});
+		await Axios.get("http://localhost:3001/accounts", config).then(
+			(response) => {
+				setAccountsList(response.data.reverse());
+			}
+		);
 	};
 
 	const deleteAccount = async (_id) => {
-		await Axios.delete(`http://localhost:3001/accounts/${_id}`);
+		await Axios.delete(`http://localhost:3001/accounts/${_id}`, config);
 		getAccounts();
 	};
 
@@ -68,7 +82,12 @@ function Accounts() {
 											<td>
 												<Link
 													className="btn btn-outline-primary mr-2"
-													to={`/accounts/view/${val._id}`}
+													to={{
+														pathname: `/accounts/view/${val._id}`,
+														state: {
+															token: token
+														}
+													}}
 												>
 													<FontAwesomeIcon
 														icon="money-bill"
