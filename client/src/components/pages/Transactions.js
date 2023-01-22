@@ -16,7 +16,7 @@ function Transcations() {
 	}, []);
 
 	const getAccounts = async () => {
-		await Axios.get("http://localhost:3001/transactions").then((response) => {
+		await Axios.get("/transactions").then((response) => {
 			setTransactionsList(response.data.reverse());
 			setLoading(false);
 		});

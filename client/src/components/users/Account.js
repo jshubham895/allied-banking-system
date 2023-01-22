@@ -84,10 +84,7 @@ const Account = () => {
 
 	const loadAccount = async () => {
 		try {
-			await Axios.get(
-				`http://localhost:3001/accounts/${accountId}`,
-				config
-			).then((result) => {
+			await Axios.get(`/accounts/${accountId}`, config).then((result) => {
 				setAccount(result.data);
 				setBalance(result.data.balance);
 				transactions();
@@ -102,13 +99,13 @@ const Account = () => {
 	};
 
 	const loadAccounts = async () => {
-		const result = await Axios.get(`http://localhost:3001/accounts`, config);
+		const result = await Axios.get(`/accounts`, config);
 		setAccountsList(result.data);
 	};
 
 	const transactions = async () => {
 		const result = await Axios.get(
-			`http://localhost:3001/transactions/account/${accountId}`,
+			`/transactions/account/${accountId}`,
 			config
 		);
 		setTransactionsList(result.data.reverse());
@@ -120,7 +117,7 @@ const Account = () => {
 		// console.log(isOpen);
 		// console.log(transactionDetails);
 		try {
-			const response = await Axios.post("http://localhost:3001/transactions", {
+			const response = await Axios.post("/transactions", {
 				from: account.name,
 				to: to,
 				fromId: fromId,
