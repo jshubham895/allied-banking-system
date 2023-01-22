@@ -22,7 +22,7 @@ function Accounts() {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			await Axios.get("http://localhost:3001/accounts", {
+			await Axios.get("/accounts", {
 				headers: { token: `${token}` }
 			}).then((response) => {
 				setAccountsList(response.data.reverse());
@@ -33,15 +33,13 @@ function Accounts() {
 	}, [token]);
 
 	const getAccounts = async () => {
-		await Axios.get("http://localhost:3001/accounts", config).then(
-			(response) => {
-				setAccountsList(response.data.reverse());
-			}
-		);
+		await Axios.get("/accounts", config).then((response) => {
+			setAccountsList(response.data.reverse());
+		});
 	};
 
 	const deleteAccount = async (_id) => {
-		await Axios.delete(`http://localhost:3001/accounts/${_id}`, config);
+		await Axios.delete(`/accounts/${_id}`, config);
 		getAccounts();
 	};
 

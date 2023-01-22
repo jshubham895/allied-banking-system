@@ -23,7 +23,7 @@ const AddAccount = () => {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		console.log(process.env.API_URL);
-		await Axios.post("http://localhost:3001/accounts/signup", account);
+		await Axios.post("/accounts/signup", account);
 		alert("Account created successful	ly");
 		history.push("/");
 	};

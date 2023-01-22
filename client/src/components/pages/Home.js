@@ -21,10 +21,7 @@ function Home() {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const result = await Axios.post(
-				"http://localhost:3001/accounts/login",
-				loginDetails
-			);
+			const result = await Axios.post("/accounts/login", loginDetails);
 			const token = result.data.token;
 			// console.log(token);
 			const accountId = result.data.user._id;
