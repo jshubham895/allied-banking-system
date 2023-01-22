@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 require("dotenv").config();
+const path = require("path");
 
 const app = express();
 app.use(cors());
@@ -30,6 +31,8 @@ mongoose
 		);
 		process.exit();
 	});
+
+app.use(express.static(path.resolve(__dirname, "../client/build")));
 
 app.get("/", (req, res) => {
 	res.json("Using MongoDB now");
