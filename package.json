@@ -1,20 +1,38 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "main": "server.js",
-  "license": "MIT",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "install": "^0.13.0",
-    "mongoose": "^5.12.9"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  }
+	"name": "allied-banking-system",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "node server/server.js",
+		"build": "cd client && npm install && npm run build",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/jshubham895/allied-banking-system.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/jshubham895/allied-banking-system/issues"
+	},
+	"homepage": "https://github.com/jshubham895/allied-banking-system#readme",
+	"engines": {
+		"node": "16.19.0"
+	},
+	"dependencies": {
+		"bcrypt": "^5.0.1",
+		"body-parser": "^1.19.0",
+		"cors": "^2.8.5",
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
+		"install": "^0.13.0",
+		"jsonwebtoken": "^8.5.1",
+		"mongoose": "^5.12.9"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.15"
+	}
 }
