@@ -8,7 +8,7 @@ exports.create = async (req, res) => {
 
 	if (Number(req.body.amountExchange) > balance) {
 		return res.status(400).send({
-			error: "Insufficient balance",
+			error: "Insufficient balance to process request.",
 			message: "Transaction declined due to insufficient balance"
 		});
 	}
