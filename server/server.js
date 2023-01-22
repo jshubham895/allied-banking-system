@@ -5,6 +5,9 @@ require("dotenv").config();
 const path = require("path");
 
 const app = express();
+
+app.use(express.static(path.resolve(__dirname, "../client/build")));
+
 app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -31,8 +34,6 @@ mongoose
 		);
 		process.exit();
 	});
-
-app.use(express.static(path.resolve(__dirname, "../client/build")));
 
 app.get("/", (req, res) => {
 	res.json("Using MongoDB now");
